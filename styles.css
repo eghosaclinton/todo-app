@@ -10,20 +10,25 @@
     display: flex;
 }
 
+section{
+    width: 47.5%;
+}
+
 #to-do, #done{
     padding: 1.5rem;
     background-color: #D5CCFF;
-    width: 47.5%;
     border-radius: .5rem;
 }
 
 .to-do-content, .done-content{
+    flex-direction: column;
+    gap: 2rem;
     margin-top: 1.5rem;
 }
 
 body{
     margin: 0;
-    padding: 1.25rem 0;
+    padding: 1.25rem 0 0;
     font-family: 'Montserrat', sans-serif;
     background-color: #2B1887;
 }
@@ -41,11 +46,65 @@ h2{
     color: #2B1887;
 }
 
+.todo-parent{
+    position: relative;
+}
+
 .task{
+    cursor: pointer;
     background-color: #F4F2FF;
     padding: 1rem 1.5rem;
     border-radius: .5rem;
+}
 
+.task-desc{
+    border-radius: .5rem;
+    top: 6rem;
+    left: 0;
+    padding: 1rem;
+    background: #fafafa;
+    position: absolute;
+    width: 100%;
+    z-index: 97;
+}
+
+.task-desc-head{
+    justify-content: space-between;
+}
+
+.cancel-img {
+    padding-right: .25rem;
+}
+
+.cancel-img img{
+    height: 2rem;
+    cursor: pointer;
+}
+
+.desc-actions{
+    gap: 1rem;
+}
+
+.desc-actions button{
+    display: flex;
+    cursor: pointer;
+    border-radius: .25rem;
+    gap: .5rem;
+    align-items: center;
+}
+
+.delete{
+    background-color: #d0312d;
+    border: solid 2px #d0312d;
+}
+
+.mark-as-done{
+    background-color: #33b864;
+    border: solid 2px #33b864;
+}
+
+.desc-actions img{
+    height: 2rem;
 }
 
 .heading{
@@ -63,15 +122,24 @@ h2{
 }
 
 .red_{
-    background-color: red;
+    background-color: #e3242b;
 }
 
 .yellow_{
-    background-color: yellow;
+    background-color: #ffd700;
 }
 
 .blue_{
     background-color: #2B1887;
+}
+
+.defualt-bg{
+    background-color: #D9D9D9;
+}
+
+.time_diff{
+    align-items: center;
+    gap: 1rem;
 }
 
 .time{
@@ -79,6 +147,19 @@ h2{
     color: white;
     border-radius: .25rem;
     font-weight: 600;
+}
+
+.diff{
+    gap: .25rem;
+}
+
+.diff-span{
+    width: 1.5rem;
+    height: 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 7rem;
+    border-bottom-right-radius: 1rem;
 }
 
 svg{
@@ -89,12 +170,34 @@ svg{
     border-radius: 100%;
     right: 5rem;
     transition: 0.5s ease-in;
-    fill: aqua;
-    z-index: 99;
+    cursor: pointer;
+    z-index: 96;
 }
 
 svg:hover{
     transform: rotate(90deg);
+}
+
+.form{
+    width: 60%;
+    background-color: #D5CCFF;
+    border-radius: .75rem;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+.form-overlay{
+    align-items: center;
+    top: 0;
+    position: absolute;
+    z-index: 95;
+    width: 100dvw;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+label{
+    display: block;
 }
 
 #Icon-Set-Filled{
@@ -102,12 +205,14 @@ svg:hover{
     transition: 0.5s ease-in;
 }
 
-/* #Icon-Set-Filled:hover{
-    fill: red;
-} */
-
 @media (max-width: 768px){
     main{
         flex-direction: column;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    #to-do, #done{
+        width: 100%;
     }
 }

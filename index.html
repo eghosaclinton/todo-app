@@ -15,64 +15,101 @@
 
     <main class="flex">
     
-        <div id="to-do">
-            <div class="heading flex">
-                <img src="./assets/Icon.svg" alt="">
-                <h2>To-Do</h2>
-            </div>
-
-            <div class="to-do-content">
-                <div class="task">
-                    <h3>The Task</h3>
-                    <div class="task-info flex">
-                        <div class="time_diff">
-                            <div class="time red_">Mon</div>
-                            <div class="diff">
-                                <span class="low"></span>
-                                <span class="mid"></span>
-                                <span class="high"></span>
+        <section>
+            <div id="to-do">
+                <div class="heading flex">
+                    <img src="./assets/Icon.svg" alt="">
+                    <h2>To-Do</h2>
+                </div>
+            
+                <div class="to-do-content flex">
+                    <div class="task">
+                        <h3>The Task</h3>
+                        <div class="task-info flex">
+                            <div class="time_diff flex">
+                                <div class="time defualt-bg">Mon</div>
+                                <div class="diff flex">
+                                    <div class="diff-span defualt-bg"></div>
+                                    <div class="diff-span defualt-bg"></div>
+                                    <div class="diff-span defualt-bg"></div>
+                                </div>
                             </div>
+                            <div class="location">Home</div>
                         </div>
-
-                        <div class="location">Home</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
         
-        <div id="done">
-            <div class="heading flex">
-                <img src="./assets/Icon (1).svg" alt="">
-                <h2>Done</h2>
-            </div>
-
-            <div class="done-content">
-                <div class="task">
-                    <h3>The Task</h3>
-                    <div class="task-info flex">
-                        <div class="time_diff">
-                            <div class="time red_">Mon</div>
-                            <div class="diff">
-                                <span class="low"></span>
-                                <span class="mid"></span>
-                                <span class="high"></span>
+        <section>
+            <div id="done">
+                <div class="heading flex">
+                    <img src="./assets/Icon (1).svg" alt="">
+                    <h2>Done</h2>
+                </div>
+                <div class="done-content">
+                    <div class="task">
+                        <h3>The Task</h3>
+                        <div class="task-info flex">
+                            <div class="time_diff flex">
+                                <div class="time defualt-bg">Mon</div>
+                                <div class="diff flex">
+                                    <span class="diff-span defualt-bg"></span>
+                                    <span class="diff-span defualt-bg"></span>
+                                    <span class="diff-span defualt-bg"></span>
+                                </div>
+                            </div>
+                            <div class="location">Home</div>
+                        </div>
+                        <div class="task-desc hidden">
+                            <div class="cancel-img"><img src="./assets/cancel-svgrepo-com.svg" class="cancel-btn"></div>
+                            <p>lorem</p>
+                            <div class="desc-actions flex">
+                                <button class="delete"><img src="./assets/delete-svgrepo-com.svg" alt=""> Delete Task</button>
+                                <button class="mark-as-done"><img src="./assets/done-all-alt-round-svgrepo-com.svg" alt=""> Mark as Done</button>
                             </div>
                         </div>
-
-                        <div class="location">Home</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
     </main>
 
-    <div class="adding-todo hidden">
-        input type="text" id="todo">
-        <button>create</button>
+    <div class="form-overlay hidden">
+        <div class='form'>
+            <label for="taskName">Task Name: </label>
+            <input type="text" id="taskName"> <br>
+
+            <label for="taskDesc">Task Description: </label>
+            <textarea name="taskDesc" id="taskDesc"></textarea> <br>
+
+            <label for="taskDate">Task Date: </label>
+            <input type="date" id="taskDate"> <br>
+
+            <label for="diff">Pick Difficulty: </label>
+            <select name="diff" id="diff">
+              <option value="easy">Easy</option>
+              <option value="moderate">Moderate</option>
+              <option value="hard">Hard</option>>
+            </select>
+
+            <label for="priority">Select Priority</label>
+            <select name="priority" id="priority">
+                <option value="low">low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>>
+            </select> <br>
+
+            <label for="taskLocation">Enter Location: </label>
+            <input type="text" id="taskLocation" max="12"> <br>
+
+
+            <button id="submit_btn">Create Todo</button>
+        </div>
     </div>
 
-        <svg width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" id="add_todo">
+    <svg width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" id="addtodo_">
     
             <title>plus-circle</title>
             <desc>Created with Sketch Beta.</desc>
@@ -84,7 +121,7 @@
                     <path d="M488,1106 L483,1106 L483,1111 C483,1111.55 482.553,1112 482,1112 C481.447,1112 481,1111.55 481,1111 L481,1106 L476,1106 C475.447,1106 475,1105.55 475,1105 C475,1104.45 475.447,1104 476,1104 L481,1104 L481,1099 C481,1098.45 481.447,1098 482,1098 C482.553,1098 483,1098.45 483,1099 L483,1104 L488,1104 C488.553,1104 489,1104.45 489,1105 C489,1105.55 488.553,1106 488,1106 L488,1106 Z M482,1089 C473.163,1089 466,1096.16 466,1105 C466,1113.84 473.163,1121 482,1121 C490.837,1121 498,1113.84 498,1105 C498,1096.16 490.837,1089 482,1089 L482,1089 Z" id="plus-circle" sketch:type="MSShapeGroup"></path>
                 </g>
             </g>
-        </svg>
+    </svg>
 
 
     <script src="script.js"></script>
