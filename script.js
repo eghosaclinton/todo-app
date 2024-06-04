@@ -1,3 +1,6 @@
+let userKeys_pending = JSON.parse(localStorage.getItem('userKeys_pending'));
+let userKeys_done = JSON.parse(localStorage.getItem('userKeys_done'));
+
 //'create new todo' button
 const add_todo_btn = document.querySelector('#addtodo_');
 let count = 0;
@@ -21,15 +24,53 @@ submit_todo_data.addEventListener('click', ()=>{
     enterTodoDataa();
     createTodo(enterTodoDataa());
 });
-//temporary code, will be removed
-document.querySelectorAll('.task').forEach(e =>{e.addEventListener('click', ()=>{
-    e.lastElementChild.classList.remove('hidden');
-    e.removeEventListener
-})});
-//same as previous code block
-document.querySelector('.cancel-btn').addEventListener('click', ()=>{
-    document.querySelector('.cancel-btn').parentElement.parentElement.add('hidden');
-});
+
+window.addEventListener('DOMContentLoaded', ()=>{
+    let greetings = ['Hello', 'Hola', 'こんにちは', 'Bonjour']
+    const greeting = document.querySelector('#greeting');
+    const userName_display = document.querySelector('#userName');
+
+    if (localStorage.getItem('userName') == null) {
+
+        document.querySelector('.welcome_parent').classList.remove('hidden');
+        document.querySelector('.welcome_parent').classList.add('flex');
+
+        localStorage.setItem('userKeys_pending', JSON.stringify(['Task2']));
+        localStorage.setItem('userKeys_done', JSON.stringify(['Task1']));
+
+        localStorage.setItem('Task2', JSON.stringify({taskName: 'Task2', diff: '', prority: '', desc: 'Only Second to Task1', taskLocation: 'Home', isDone: false}));
+        localStorage.setItem('Task2_date', JSON.stringify(new Date(2024, 0, 1)));
+        localStorage.setItem('Task1', JSON.stringify({taskName: 'Task1', diff: '', prority: '', desc: 'Your Very First todo...already done though', taskLocation: 'Home', isDone: true}));
+        localStorage.setItem('Task1_date', JSON.stringify(new Date(2024, 0, 1)));
+
+        let userName_str = document.querySelector('#enter_userName');
+        document.querySelector('#welcome_btn').addEventListener('click',() => {
+            console.log('Enter user name');
+            localStorage.setItem('userName', userName_str.value)
+            document.querySelector('.welcome_parent').classList.remove('flex');
+            document.querySelector('.welcome_parent').classList.add('hidden');
+            window.location.reload();
+        });
+        
+    }
+
+    let randNum = Math.round(Math.random()*3);
+    greeting.textContent = `${greetings[randNum]}, `
+    userName_display.textContent = `${(localStorage.getItem('userName') == null)? '--': localStorage.getItem('userName')}`;
+
+    userKeys_pending.forEach(k => {
+        // createTodo(JSON.parse(localStorage.getItem(k)));
+        let kObj = JSON.parse(localStorage.getItem(k));
+        kObj.taskDate = JSON.parse(localStorage.getItem('Task2_date'))
+
+        console.log(typeof kObj.taskDate);
+    });
+
+    userKeys_done.forEach(k => {
+        // createTodo(JSON.parse(localStorage.getItem(k)));
+        console.log(JSON.parse(localStorage.getItem(k)));
+    });    
+})
 
 //the below function creates an object that has information for each todontask
 function enterTodoDataa(){
@@ -49,7 +90,7 @@ function enterTodoDataa(){
     //object constructor
     function Obj(taskName, taskDate, diff, priority, description, taskLocation){
         this.taskName = taskName,
-        this.taskDate = new Date(taskDate[0], taskDate[1], taskDate[2]),
+        this.taskDate = new Date(taskDate[0], taskDate[1]-1, taskDate[2]),
         this.diff =  diff,
         this.priority = priority,
         this.desc = description,
@@ -68,6 +109,8 @@ function createTodo(todoData){
     //used to determine day of the week on the ui component
     let dayOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let dayOfThetodo = todoData.taskDate.getDay();
+    console.log(dayOfThetodo);
+    console.log(todoData.taskDate);
 
     let bg_color;
     switch (todoData.priority) {
@@ -103,6 +146,9 @@ function createTodo(todoData){
             bg3 = bg_color;
             break;
         default:
+            bg1 = bg_color;
+            bg2 = bg_color;
+            bg3 = bg_color;
             break;
     }
 
@@ -160,9 +206,7 @@ function createTodo(todoData){
 
     //removes the 'extra info' from display
     const removeInfo = () => { task_desc.querySelector('.cancel-btn').parentElement.parentElement.parentElement.classList.add('hidden');};
-    task_desc.querySelector('.cancel-btn').onclick = removeInfo;
-
-    
+    task_desc.querySelector('.cancel-btn').onclick = removeInfo;   
 
     //appends the 'extra info' and task component to parent container
     todo_parent.appendChild(todo);
@@ -171,5 +215,10 @@ function createTodo(todoData){
     //appends parent container to todo content container
     document.querySelector('.to-do-content').appendChild(todo_parent);
 
-
+    //append ui component to done
+    const mark_as_done = () => {
+        document.querySelector('.to-do-content').removeChild(todo_parent);
+        document.querySelector('.done-content').appendChild(todo_parent);
+    }
+    task_desc.querySelector('.mark-as-done').onclick = mark_as_done; 
 }

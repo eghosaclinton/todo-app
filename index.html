@@ -13,6 +13,22 @@
 </head>
 <body>
 
+    <div class="welcome_parent hidden">
+        <div class="welcome">
+            <p>
+                Hey there! Welcome to MytoDo-betA! This is my first webapp, ever. <br>
+                All this app does is what your traditional todo apps do...setting aside tasks to do later.
+                The app is severless, so userInfo loads pretty fast. <br> <br>By the way, What can we call you?
+            </p>
+            <input type="text" id="enter_userName"> <br>
+            <input type="button" value="...is what you can call me!" id="welcome_btn">
+        </div>
+    </div>
+
+    <header>
+        <h3><span id="greeting"></span><span id="userName"></span></h3>
+    </header>
+
     <main class="flex">
     
         <section>
@@ -47,7 +63,7 @@
                     <img src="./assets/Icon (1).svg" alt="">
                     <h2>Done</h2>
                 </div>
-                <div class="done-content">
+                <div class="done-content flex">
                     <div class="task">
                         <h3>The Task</h3>
                         <div class="task-info flex">
