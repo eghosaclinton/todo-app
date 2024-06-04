@@ -236,6 +236,20 @@ label{
         margin: 0 auto;
     }
 
+    section{
+        width: 100%;
+    }
+
+    svg{
+        background-color: #ffffff;
+        bottom: 2.5rem;
+        right: 2.5rem;
+    }
+
+    .form{
+        width: 80%;
+    }
+
     #to-do, #done{
         width: 100%;
     }
