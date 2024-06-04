@@ -23,6 +23,9 @@ const submit_todo_data = document.getElementById('submit_btn');
 submit_todo_data.addEventListener('click', ()=>{
     enterTodoDataa();
     createTodo(enterTodoDataa());
+    document.querySelector('.form-overlay').classList.add('hidden');
+    document.querySelector('.form-overlay').classList.remove('flex');
+    add_todo_btn.style.transform = 'rotate(0deg)';
 });
 
 window.addEventListener('DOMContentLoaded', ()=>{
