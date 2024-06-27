@@ -16,11 +16,11 @@ add_todo_btn.addEventListener('click', () =>{
         add_todo_btn.style.transform = 'rotate(0deg)';
     }
 });
-//'submit todo data' button
+
 const submit_todo_data = document.getElementById('submit_btn');
-//adding event listener to enable submission of todo data and creation f new todo
+
+//adding event listener to enable submission of todo data and creation of new todo
 submit_todo_data.addEventListener('click', ()=>{
-    enterTodoDataa();
     createTodo(enterTodoDataa());
     document.querySelector('.form-overlay').classList.add('hidden');
     document.querySelector('.form-overlay').classList.remove('flex');
@@ -35,15 +35,16 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
         localStorage.setItem('userKeys', JSON.stringify(['Task1', 'Task2']));
 
-        localStorage.setItem('Task2', JSON.stringify({taskName: 'Task2', taskDate_seed: JSON.stringify([2024, 0, 1]), diff: '', prority: '', desc: 'Only Second to Task1', taskLocation: 'Home', isDone: false}));
-        localStorage.setItem('Task1', JSON.stringify({taskName: 'Task1', taskDate_seed: JSON.stringify([2024, 0, 1]), diff: '', prority: '', desc: 'Your Very First todo...already done though', taskLocation: 'Home', isDone: true}));
+        localStorage.setItem('Task2', JSON.stringify({taskName: 'Task2', taskDate_seed: JSON.stringify([2024, 0, 1]), diff: '', 
+                                prority: '', desc: 'Only Second to Task1', taskLocation: 'Home', isDone: false}));
+
+        localStorage.setItem('Task1', JSON.stringify({taskName: 'Task1', taskDate_seed: JSON.stringify([2024, 0, 1]), diff: '', 
+                                prority: '', desc: 'Your Very First todo...already done though', taskLocation: 'Home', isDone: true}));
 
         let userName_str = document.querySelector('#enter_userName');
         document.querySelector('#welcome_btn').addEventListener('click',() => {
-            console.log('Enter user name');
+            // console.log('Enter user name');
             localStorage.setItem('userName', userName_str.value)
-            document.querySelector('.welcome_parent').classList.remove('flex');
-            document.querySelector('.welcome_parent').classList.add('hidden');
             window.location.reload();
         });
         
@@ -55,13 +56,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
     let randNum = Math.round(Math.random()*3);
     greeting.textContent = `${greetings[randNum]}, `
-    userName_display.textContent = `${(localStorage.getItem('userName') == null)? '--': localStorage.getItem('userName')}`;
+    userName_display.textContent = `${localStorage.getItem('userName') ?? '--'}`;
 
     userKeys.forEach(k => {
         let obj = JSON.parse(localStorage.getItem(k));
         obj.taskDate_seed = JSON.parse(obj.taskDate_seed)
         createTodo(obj);
-        // console.log(typeof JSON.parse(JSON.parse(localStorage.getItem(k)).taskDate_seed));
     });
 })
 
@@ -78,12 +78,12 @@ function enterTodoDataa(){
     //that is used for creation of date object later
     let date_arr = task_date.value.split('-');
     let date_arr2 = date_arr.map(e => parseInt(e));
-    //object declaration
+
     let myObj;
     //object constructor
     function Obj(taskName, diff, priority, description, taskLocation){
         this.taskName = taskName,
-        this.taskDate_seed = date_arr2,
+        this.taskDate_seed = [date_arr2[0], date_arr2[1]-1, date_arr2[2]],
         this.diff =  diff,
         this.priority = priority,
         this.desc = description,
@@ -94,17 +94,36 @@ function enterTodoDataa(){
     //object var definition
     myObj = new Obj(task_name.value, diff.value, priority.value, text_desc.value, task_location.value);
 
-    return myObj;
+    let myObj_temp = new Obj(task_name.value, diff.value, priority.value, text_desc.value, task_location.value);
+    myObj_temp.taskDate_seed = JSON.stringify(myObj.taskDate_seed);
+
+    let k_count = 0;
+    try {
+        userKeys.forEach(k => {if (myObj_temp.taskName == k) k_count++; throw 'key already exists';})
+    } catch (error) {
+        console.error(error);
+    }finally{
+        if (k_count === 0){
+            userKeys.push(myObj_temp.taskName);
+            localStorage.setItem('userKeys', JSON.stringify(userKeys));
+            localStorage.setItem(myObj_temp.taskName, JSON.stringify(myObj_temp));
+            return myObj;   
+        }else{
+            return null;
+        }
+        
+    }
 }
 
 //this function creates the todo ui component for the user to view
 function createTodo(todoData){
+    if (todoData == null) return;
+
     let myDate = new Date(todoData.taskDate_seed[0], todoData.taskDate_seed[1], todoData.taskDate_seed[2]);
     //used to determine day of the week on the ui component
     let dayOfTheWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let dayOfThetodo = myDate.getDay();
-    console.log(todoData.taskDate_seed);//
-    console.log(myDate);
+    // console.log(todoData.taskDate_seed);
 
     let bg_color;
     switch (todoData.priority) {
@@ -149,7 +168,6 @@ function createTodo(todoData){
     //parent container for the task ui component and addition of class
     let todo_parent = document.createElement('div');
     todo_parent.classList.add('todo-parent');
-    
 
     //task ui component and its classes
     let todo = document.createElement('div');
@@ -213,6 +231,10 @@ function createTodo(todoData){
     const mark_as_done = () => {
         document.querySelector('.to-do-content').removeChild(todo_parent);
         document.querySelector('.done-content').appendChild(todo_parent);
+
+        let temp =JSON.parse(localStorage.getItem(`${todoData.taskName}`));
+        temp.isDone = true;
+        localStorage.setItem(`${todoData.taskName}`, JSON.stringify(temp));
     }
     task_desc.querySelector('.mark-as-done').onclick = mark_as_done; 
     if (todoData.isDone) mark_as_done();
