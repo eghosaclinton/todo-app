@@ -86,6 +86,7 @@ h2{
 
 .task-desc{
     border-radius: .5rem;
+    outline: #000000 2px solid;
     top: 6rem;
     left: 0;
     padding: 1rem;
