@@ -14,6 +14,28 @@ header{
     padding: 1rem;
     font-size: 1.5rem;
     color: white;
+    align-items: center;
+}
+
+.drop-down-menu{
+    position: relative;
+}
+
+#reset{
+    position: absolute;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 300%;
+    outline: black 2px solid;
+    background-color: #D5CCFF;
+    border-radius: .25rem;
+    display: none;
+    padding: .25rem;
+}
+
+#drop-down{
+    transition: 0.5s ease-in;
+    height: 3rem;
 }
 
 section{
@@ -34,7 +56,6 @@ section{
 
 body{
     margin: 0;
-    /* padding: 1.25rem 0 0; */
     font-family: 'Montserrat', sans-serif;
     background-color: #2B1887;
 }

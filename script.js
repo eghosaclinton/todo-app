@@ -65,6 +65,25 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
 })
 
+let counter = 0;
+document.getElementById('drop-down').addEventListener('click', () => { 
+    counter++;
+    if (counter % 2 !== 0){
+        document.getElementById('drop-down').style.transform = 'rotate(180deg)';
+        document.getElementById('reset').style.display = 'flex';
+    }else{
+        document.getElementById('drop-down').style.transform = 'rotate(0deg)';
+        document.getElementById('reset').style.display = 'none';
+    }
+});
+
+const resetTodo = () => {
+    localStorage.clear();
+    window.location.reload();
+};
+
+document.getElementById('reset').onclick = resetTodo;
+
 //the below function creates an object that has information for each todontask
 function enterTodoDataa(){
     //input elements used for data collection
@@ -99,7 +118,7 @@ function enterTodoDataa(){
 
     let k_count = 0;
     try {
-        userKeys.forEach(k => {if (myObj_temp.taskName == k) k_count++; throw 'key already exists';})
+        userKeys.forEach(k => {if (myObj_temp.taskName == k){ k_count++; throw 'key already exists';}})
     } catch (error) {
         console.error(error);
     }finally{
@@ -217,8 +236,25 @@ function createTodo(todoData){
     `  
 
     //removes the 'extra info' from display
-    const removeInfo = () => { task_desc.querySelector('.cancel-btn').parentElement.parentElement.parentElement.classList.add('hidden');};
+    const removeInfo = () => { task_desc.classList.add('hidden');};
     task_desc.querySelector('.cancel-btn').onclick = removeInfo;   
+
+    // delete todo
+    const delete_todo = () => {
+        let k  = todo.querySelector('h3').textContent;
+
+        if (document.querySelector('.done-content').contains(todo_parent)) document.querySelector('.done-content').removeChild(todo_parent); 
+        else document.querySelector('.to-do-content').removeChild(todo_parent);
+
+        localStorage.removeItem(k);
+
+        let arr = JSON.parse(localStorage.getItem('userKeys'));
+        arr.splice(arr.indexOf('k'), 1);
+
+        localStorage.setItem('userKeys', JSON.stringify(arr));
+    }
+
+    task_desc.querySelector('.delete').onclick = delete_todo;
 
     //appends the 'extra info' and task component to parent container
     todo_parent.appendChild(todo);
@@ -226,6 +262,8 @@ function createTodo(todoData){
 
     //appends parent container to todo content container
     document.querySelector('.to-do-content').appendChild(todo_parent);
+
+    task_desc.querySelector('.delete').onclick = delete_todo;
 
     //append ui component to done
     const mark_as_done = () => {
