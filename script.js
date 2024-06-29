@@ -71,9 +71,14 @@ document.getElementById('drop-down').addEventListener('click', () => {
     if (counter % 2 !== 0){
         document.getElementById('drop-down').style.transform = 'rotate(180deg)';
         document.getElementById('reset').style.display = 'flex';
+        document.getElementById('reset').style.opacity = '1';
+        
+
     }else{
         document.getElementById('drop-down').style.transform = 'rotate(0deg)';
         document.getElementById('reset').style.display = 'none';
+        document.getElementById('reset').style.opacity = '0.25';
+        
     }
 });
 

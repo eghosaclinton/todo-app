@@ -23,7 +23,9 @@ header{
 
 #reset{
     position: absolute;
+    opacity: 0;
     cursor: pointer;
+    transition: ease-in-out;
     font-size: 1.1rem;
     width: 300%;
     outline: black 2px solid;
@@ -63,6 +65,10 @@ body{
 main{
     gap: 2rem;
     justify-content: center;
+}
+
+input, select{
+    font-family: 'Montserrat', sans-serif;
 }
 
 h2, h3{
@@ -224,6 +230,55 @@ svg:hover{
     background: rgba(0, 0, 0, 0.7);
 }
 
+#taskName{
+    width: 50%;
+    background-color: #ffffff;
+    padding: .4rem;
+    border: 2px solid #D9D9D9;
+    border-radius: .5rem;
+}
+
+textarea{
+    border: 2px solid #D9D9D9;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: .5rem;
+    padding: .5rem;
+    max-width: 80%;
+    max-height: 10rem;
+}
+
+#taskDate, select{
+    border: 2px solid #D9D9D9;
+    border-radius: .25rem;
+    width: 20%;
+    padding: .25rem;
+}
+
+#taskLocation{
+    border: 2px solid #D9D9D9;
+    border-radius: .25rem;
+    width: 30%;
+    padding: .4rem;
+}
+
+#submit_btn{
+    background-color: #2B1887;
+    color: #ffffff;
+    border: 2px solid #2B1887;
+    border-radius: .8rem;
+    margin: .75rem 0 0;
+    transition: 0.5s ease-in;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    width: 25%;
+    padding: .5rem;
+}
+
+#submit_btn:hover{
+    background-color: transparent;
+    color: #2B1887;
+}
+
 label{
     display: block;
 }
@@ -246,9 +301,37 @@ label{
 
 .welcome{
     padding: 1rem;
+    outline: 2px solid #ffffff;
     width: 60%;
     background-color: #D5CCFF;
     border-radius: .25rem;
+}
+
+#enter_userName{
+    width: 40%;
+    padding: .4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: .25rem;
+    margin-bottom: .5rem;
+    border: none;
+}
+
+#welcome_btn{
+    border: solid 2px #2B1887;
+    cursor: pointer;
+    background-color: #2B1887;
+    color: white;
+    font-weight: 600;
+    transition: 0.5s ease-in;
+    border-radius: 1.5rem;
+    padding: .65rem;
+    width: 25%;
+}
+
+#welcome_btn:hover{
+    background-color: transparent;
+    color: #2B1887;    
 }
 
 @media (max-width: 768px){
@@ -260,6 +343,35 @@ label{
 
     section{
         width: 100%;
+    }
+
+    .welcome{
+        width: 80%;
+    }
+
+    #enter_userName{
+        width: 80%;
+    }
+
+    #welcome_btn{
+        width: 60%;
+        padding: .6rem .75rem;
+    }
+
+    #taskName{
+        width: 80%;
+    }
+
+    #taskDate, select{
+        width: 50%;
+    }
+
+    #taskLocation{
+        width: 65%;
+    }
+
+    #submit_btn{
+        width: 50%;
     }
 
     svg{
